@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  </head>
+  <body>
+    <canvas>
+    </canvas>
+  </body>
+
+  <script>
+  const canvas = document.querySelector("canvas");
+  document.addEventListener('pointerlockchange', lockChange, false);
+  let modifierKeys = {
+    Meta: false,
+    Alt: false,
+    Shift: false
+  };
+
+  function lockChange() {
+    if (document.pointerLockElement === canvas) {
+      console.log('locked');
+      document.addEventListener("mousemove", moveMouse, false);
+      document.addEventListener('click', clickMouse, false);
+      document.addEventListener('dblclick', dblClickMouse, false);
+      document.addEventListener('keydown', pressKey, false);
+      document.addEventListener('keyup', releaseKey, false);
+    } else {
+      console.log('unlocked');
+      document.removeEventListener("mousemove", moveMouse, false);
+      document.removeEventListener('click', clickMouse, false);
+      document.removeEventListener('dblclick', dblClickMouse, false);
+      document.removeEventListener('keydown', pressKey, false);
+      document.removeEventListener('keyup', releaseKey, false);
+    }
+  }
+
+  function releaseKey(event) {
+    if (modifierKeys[event.key]) {
+      modifierKeys[event.key] = false;
+    }
+    console.log('Released:', event.key);
+    console.log('Modifiers:', modifierKeys);
+  }
+
+  function pressKey(event) {
+    if (modifierKeys[event.key] == false) {
+      modifierKeys[event.key] = true;
+    }
+    console.log('Pressed:', event.key);
+    console.log('Modifiers:', modifierKeys);
+  }
+
+  function dblClickMouse(event) {
+    switch (event.button) {
+      case 0: 
+	console.log('Left Dbl Click');
+	break;
+      case 1:
+	console.log('Middle Dbl Click');
+	break;
+      case 2:
+	console.log('Right Dbl Click');
+	break;
+      default:
+	console.log('What the fuck did you click!??!?!?!');
+    }
+  }
+
+  function clickMouse(event) {
+    switch (event.button) {
+      case 0: 
+	console.log('Left Click');
+	break;
+      case 1:
+	console.log('Middle Click');
+	break;
+      case 2:
+	console.log('Right Click');
+	break;
+      default:
+	console.log('What the fuck did you click!??!?!?!');
+    }
+  }
+
+  function moveMouse(event) {
+    console.log('X:', event.movementX);
+    console.log('Y:', event.movementY);
+  }
+
+  canvas.onclick = function() {
+    canvas.requestPointerLock();
+  };
+
+  </script>
+</html>
