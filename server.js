@@ -39,12 +39,33 @@ app.listen(port, listenOn, () => {
     console.log(`listening on ${listenOn}:${port}`);
 });
 
+const modifierKeys = {
+    Meta: {
+	key: 'command',
+	pressed: false
+    },
+    Alt: {
+	key: 'alt',
+	pressed: false
+    },
+    Shift: {
+	key: 'shift',
+	pressed: false
+    },
+    Control: {
+	key: 'control'
+	pressed: false
+    }
+}
+
 const keyTransformer = {
     Backspace: 'backspace',
-    Meta: 'command',
-    Alt: 'alt',
-    Shift: 'Shift',
-    Control: 'control',
+    Tab: 'tab'
+    ArrowUp: 'up',
+    ArrowDown: 'down',
+    ArrowRight: 'right',
+    ArrowLeft: 'left',
+    Enter: 'enter',
     F1: 'f1',
     F2: 'f2',
     F3: 'f3',
@@ -56,17 +77,20 @@ const keyTransformer = {
     F9: 'f9',
     F10: 'f10',
     F11: 'f11',
-    F12: 'f12',
-    ArrowUp: 'up',
-    ArrowDown: 'down',
-    ArrowRight: 'right',
-    ArrowLeft: 'left',
-    Enter: 'enter'
+    F12: 'f12'
 };
 
 function keyboard({key, modifierKeys}) {
-    const tranformedKey = keyTransformer[key] || key;
-    robot.keyTap(tranformedKey);
+    if (modifierKeys[key]) {
+	modifierKeys[key].pressed = !modifierKeys[key].pressed;
+    } else {
+	const transformedKey = keyTransformer[key] || key;
+	let modifiers = [];
+	for (let key in modifierKeys) {
+	    if (modifierKeys[key].pressed) modifiers.push(modifierKeys[key].key);
+	}
+	robot.keyTap(tranformedKey, modifiers);
+    }
 }
 
 function click({btn, dblClick}) {
