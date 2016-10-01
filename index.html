@@ -55,16 +55,20 @@
   }
 
   function dblClickMouse(event) {
-    let msg = {msg: 'click', dblClick: true};
+    let msg = {
+      msg: 'click',
+      args: {
+	dblClick: true,
+	btn: 'left'
+      }
+    };
+
     switch (event.button) {
       case 1:
-	msg.btn = 'middle'
+	msg.args.btn = 'middle'
 	break;
       case 2:
-	msg.btn = 'right';
-	break;
-      default:
-	msg.btn = 'left';
+	msg.args.btn = 'right';
 	break;
     }
     socketEmit(msg);    
