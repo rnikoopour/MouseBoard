@@ -40,7 +40,7 @@ app.listen(port, listenOn, () => {
 });
 
 function keyboard({key, modifierKeys}) {
-    robot.keyTap(key, modifiers);
+    robot.keyTap(key);
     // Doing this cuz it gets stuck on cmd + tab
 }
 
