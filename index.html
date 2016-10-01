@@ -8,6 +8,10 @@
   </body>
 
   <script>
+  const loc = window.location;
+  console.log(loc);
+  const socket = new WebSocket(`ws://${loc.host}`);
+
   const canvas = document.querySelector("canvas");
   document.addEventListener('pointerlockchange', lockChange, false);
   let modifierKeys = {
