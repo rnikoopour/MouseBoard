@@ -45,6 +45,7 @@ const keyTransformer = {
 }
 
 function keyboard({key, modifierKeys}) {
+    const tranformedKey = keyTransformer[key] || key;
     robot.keyTap(key);
     // Doing this cuz it gets stuck on cmd + tab
 }
