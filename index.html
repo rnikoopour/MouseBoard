@@ -32,11 +32,14 @@
     }
   }
 
-  const badKeys = ['Tab', 'Meta', 'Shift'];
+  const transformKeys = ['Tab', 'Shift'];
+  const forbiddenKeys = ['Meta', 'Alt'];
+  
   function pressKey(event) {
     let key = event.key
-    if (~badKeys.indexOf(key)) key = event.key.toLowerCase();
-
+    if (~forbiddenKeys.indexOf(key)) return;
+    console.log(key);
+    if (~transformKeys.indexOf(key)) key = key.toLowerCase();
     const msg = {
       msg: 'keyboard',
       args: {
