@@ -42,16 +42,25 @@
     if (modifierKeys[event.key]) {
       modifierKeys[event.key] = false;
     }
-    console.log('Released:', event.key);
-    console.log('Modifiers:', modifierKeys);
   }
 
   function pressKey(event) {
+    const sendKey = true;
     if (modifierKeys[event.key] == false) {
-      modifierKeys[event.key] = true;
+      modifierKeys[event.key] = event.key;
+      sendKey = false;
     }
-    console.log('Pressed:', event.key);
-    console.log('Modifiers:', modifierKeys);
+
+    if (sendKey) { 
+      const msg = {
+	msg: 'keyboard',
+	args: {
+	  modifierKeys,
+	  key: event.key
+	}
+      }
+      socketEmit(msg);
+    }
   }
 
   function dblClickMouse(event) {

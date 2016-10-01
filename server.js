@@ -21,6 +21,9 @@ app.ws('/', (ws, req) => {
 	case 'click':
 	    click(args);
 	    break;
+	case 'keyboard':
+	    keyboard(args);
+	    break;
 	}
     });
 });
@@ -32,9 +35,11 @@ app.listen(port, listenOn, () => {
     console.log(`listening on ${listenOn}:${port}`);
 });
 
-function type(key, modifiers) {
-    if (!modifiers) modifiers = [];
-    else if(!Array.isArray(modifiers)) modifiers = [modifiers];
+function keyboard({key, modifierKeys}) {
+    let modifiers = [];
+    for (const modifier of modifierKeys) {
+	if (modifier) modifiers.push(modifier);
+    }
     robot.keyTap(key, modifiers);
     // Doing this cuz it gets stuck on cmd + tab
     modifiers.forEach((modifier) => {
