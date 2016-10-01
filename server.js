@@ -53,7 +53,7 @@ const modifierKeys = {
 	pressed: false
     },
     Control: {
-	key: 'control'
+	key: 'control',
 	pressed: false
     }
 }
