@@ -80,7 +80,7 @@ const keyTransformer = {
     F12: 'f12'
 };
 
-function keyboard({key, modifierKeys}) {
+function keyboard({key}) {
     if (modifierKeys[key]) {
 	modifierKeys[key].pressed = !modifierKeys[key].pressed;
     } else {
