@@ -37,7 +37,7 @@ app.listen(port, listenOn, () => {
 
 function keyboard({key, modifierKeys}) {
     let modifiers = [];
-    for (const modifier of modifierKeys) {
+    for (const modifier in modifierKeys) {
 	if (modifier) modifiers.push(modifier);
     }
     robot.keyTap(key, modifiers);

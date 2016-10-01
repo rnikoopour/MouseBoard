@@ -14,12 +14,6 @@
   const canvas = document.querySelector("canvas");
   document.addEventListener('pointerlockchange', lockChange, false);
 
-  let modifierKeys = {
-    Meta: false,
-    Alt: false,
-    Shift: false
-  };
-
   function lockChange() {
     if (document.pointerLockElement === canvas) {
       console.log('locked');
@@ -38,29 +32,14 @@
     }
   }
 
-  function releaseKey(event) {
-    if (modifierKeys[event.key]) {
-      modifierKeys[event.key] = false;
-    }
-  }
-
   function pressKey(event) {
-    const sendKey = true;
-    if (modifierKeys[event.key] == false) {
-      modifierKeys[event.key] = event.key;
-      sendKey = false;
-    }
-
-    if (sendKey) { 
-      const msg = {
-	msg: 'keyboard',
-	args: {
-	  modifierKeys,
-	  key: event.key
-	}
+    const msg = {
+      msg: 'keyboard',
+      args: {
+	key: event.key
       }
-      socketEmit(msg);
     }
+      socketEmit(msg);
   }
 
   function dblClickMouse(event) {
