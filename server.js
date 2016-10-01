@@ -39,6 +39,11 @@ app.listen(port, listenOn, () => {
     console.log(`listening on ${listenOn}:${port}`);
 });
 
+const keyTransformer = {
+    Backspace: 'backspace',
+    Meta: 'command',
+}
+
 function keyboard({key, modifierKeys}) {
     robot.keyTap(key);
     // Doing this cuz it gets stuck on cmd + tab
