@@ -26,6 +26,7 @@ app.ws('/', (ws, req) => {
 		keyboard(args);
 	    } catch (e) {
 		console.log(args);
+		console.log(e);
 	    }
 	    break;
 	}
