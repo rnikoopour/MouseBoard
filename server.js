@@ -22,7 +22,11 @@ app.ws('/', (ws, req) => {
 	    click(args);
 	    break;
 	case 'keyboard':
-	    keyboard(args);
+	    try {
+		keyboard(args);
+	    } catch (e) {
+		console.log(args);
+	    }
 	    break;
 	}
     });
@@ -36,15 +40,8 @@ app.listen(port, listenOn, () => {
 });
 
 function keyboard({key, modifierKeys}) {
-    let modifiers = [];
-    for (const modifier in modifierKeys) {
-	if (modifier) modifiers.push(modifier);
-    }
     robot.keyTap(key, modifiers);
     // Doing this cuz it gets stuck on cmd + tab
-    modifiers.forEach((modifier) => {
-	robot.keyTap(modifier);
-    });
 }
 
 function click({btn, dblClick}) {

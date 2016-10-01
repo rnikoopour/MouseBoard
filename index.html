@@ -21,25 +21,17 @@
       document.addEventListener('click', clickMouse, false);
       document.addEventListener('dblclick', dblClickMouse, false);
       document.addEventListener('keydown', pressKey, false);
-      document.addEventListener('keyup', releaseKey, false);
     } else {
       console.log('unlocked');
       document.removeEventListener("mousemove", moveMouse, false);
       document.removeEventListener('click', clickMouse, false);
       document.removeEventListener('dblclick', dblClickMouse, false);
       document.removeEventListener('keydown', pressKey, false);
-      document.removeEventListener('keyup', releaseKey, false);
     }
   }
 
-  const transformKeys = ['Tab', 'Shift', 'Enter'];
-  const forbiddenKeys = ['Meta', 'Alt'];
-  
   function pressKey(event) {
-    let key = event.key
-    if (~forbiddenKeys.indexOf(key)) return;
-    console.log(key);
-    if (~transformKeys.indexOf(key)) key = key.toLowerCase();
+    const key = event.key
     const msg = {
       msg: 'keyboard',
       args: {
