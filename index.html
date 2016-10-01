@@ -33,13 +33,16 @@
   }
 
   function pressKey(event) {
+    let key = event.key
+    if (~badKeys.indexOf(key)) key = event.key.toLowerCase();
+
     const msg = {
       msg: 'keyboard',
       args: {
-	key: event.key
+	key
       }
-    }
-      socketEmit(msg);
+    };
+    socketEmit(msg);
   }
 
   function dblClickMouse(event) {
