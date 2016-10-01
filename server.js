@@ -25,7 +25,12 @@ app.ws('/', (ws, req) => {
     });
 });
 
-app.listen(9000);
+const port = 9000;
+const listenOn = '0.0.0.0';
+
+app.listen(port, listenOn, () => {
+    console.log(`listening on ${listenOn}:${port}`);
+});
 
 function type(key, modifiers) {
     if (!modifiers) modifiers = [];
