@@ -90,8 +90,7 @@ function keyboard({key}) {
 	for (let key in modifierKeys) {
 	    if (modifierKeys[key].pressed) modifiers.push(modifierKeys[key].key);
 	}
-	console.log('modifiers:', modifiers);
-	robot.keyTap(tranformedKey, modifiers);
+	robot.keyTap(transformedKey, modifiers);
     }
 }
 
