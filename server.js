@@ -60,7 +60,7 @@ const modifierKeys = {
 
 const keyTransformer = {
     Backspace: 'backspace',
-    Tab: 'tab'
+    Tab: 'tab',
     ArrowUp: 'up',
     ArrowDown: 'down',
     ArrowRight: 'right',
