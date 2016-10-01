@@ -9,11 +9,11 @@
 
   <script>
   const loc = window.location;
-  console.log(loc);
   const socket = new WebSocket(`ws://${loc.host}`);
 
   const canvas = document.querySelector("canvas");
   document.addEventListener('pointerlockchange', lockChange, false);
+
   let modifierKeys = {
     Meta: false,
     Alt: false,
@@ -55,40 +55,52 @@
   }
 
   function dblClickMouse(event) {
+    let msg = {msg: 'click', dblClick: true};
     switch (event.button) {
-      case 0: 
-	console.log('Left Dbl Click');
-	break;
       case 1:
-	console.log('Middle Dbl Click');
+	msg.btn = 'middle'
 	break;
       case 2:
-	console.log('Right Dbl Click');
+	msg.btn = 'right';
 	break;
       default:
-	console.log('What the fuck did you click!??!?!?!');
+	msg.btn = 'left';
+	break;
     }
+    socketEmit(msg);    
   }
 
   function clickMouse(event) {
+    let msg = {msg: 'click'};
+
     switch (event.button) {
-      case 0: 
-	console.log('Left Click');
-	break;
       case 1:
-	console.log('Middle Click');
+	msg.btn = 'middle'
 	break;
       case 2:
-	console.log('Right Click');
+	msg.btn = 'right';
 	break;
       default:
-	console.log('What the fuck did you click!??!?!?!');
+	msg.btn = 'left';
+	break;
     }
+    socketEmit(msg);
   }
 
   function moveMouse(event) {
-    console.log('X:', event.movementX);
-    console.log('Y:', event.movementY);
+    const msg = {
+      msg: 'moveMouse',
+      args: {
+	x: event.movementX,
+	y: event.movementY
+      }
+    };
+    socketEmit(msg);
+  }
+
+  function socketEmit(msg) {
+    const msgString = JSON.stringify(msg);
+    socket.send(msgString);
   }
 
   canvas.onclick = function() {

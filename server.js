@@ -1,14 +1,10 @@
 'use strict';
 
 const robot = require('robotjs');
-const ws = require('websocket');
 const express = require('express');
+
 const app = express();
 const expressWs = require('express-ws')(app);
-
-
-const events = require('events');
-
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html'); 
@@ -16,15 +12,20 @@ app.get('/', (req, res) => {
 
 app.ws('/', (ws, req) => {
     console.log('connected');
+    ws.on('message', (msgString) => {
+	const {msg, args} = JSON.parse(msgString);
+	switch (msg) {
+	case 'moveMouse':
+	    moveMouse(args);
+	    break;
+	case 'click':
+	    click(args);
+	    break;
+	}
+    });
 });
 
 app.listen(9000);
-
-
-
-//eventEmitter.on('mouseMove', moveMouse);
-//eventEmitter.on('click', click);
-//eventEmitter.on('type', type);
 
 function type(key, modifiers) {
     if (!modifiers) modifiers = [];
@@ -36,26 +37,18 @@ function type(key, modifiers) {
     });
 }
 
-function click(btn, dblClick) {
-    if (dblClick) robot.mouseClick(btn, true);
-    else robot.mouseClick(btn, false);
+function click({btn, dblClick}) {
+    robot.mouseClick(btn, dblClick);
 }
 
 function normalizeMouse(val) {
     return val > 0 ? val : 1;
 }
 
-function moveMouse(x, y) {
+function moveMouse({x, y}) {
     const mouse = robot.getMousePos();
     const xPos = normalizeMouse(mouse.x + x)
     const yPos = normalizeMouse(mouse.y + y);
     robot.moveMouseSmooth(xPos, yPos);
 }
-
-function test() {
-//    eventEmitter.emit('click', 'left');
-    //eventEmitter.emit('type', 'f');
-}
-
-test();
 

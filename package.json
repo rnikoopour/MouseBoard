@@ -1,0 +1,25 @@
+{
+  "name": "mouseboard",
+  "version": "1.0.0",
+  "description": "Mouse and keyboard over HTTP",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.14.0",
+    "express-ws": "^2.0.0",
+    "robotjs": "^0.4.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rnikoopour/MouseBoard.git"
+  },
+  "author": "Reza Nikoopour",
+  "bugs": {
+    "url": "https://github.com/rnikoopour/MouseBoard/issues"
+  },
+  "homepage": "https://github.com/rnikoopour/MouseBoard#readme"
+}
